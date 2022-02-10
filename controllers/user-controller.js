@@ -4,14 +4,6 @@ const userController = {
     // GET all users
     getAllUser(req, res) {
         User.find({})
-          .populate({
-            path: 'thoughts',
-            select: '-__v'
-          })
-          .populate({
-            path: 'friends',
-            select: '-__v'
-          })
           .select('-__v')
           .sort({ _id: -1 })
           .then(dbUserData => res.json(dbUserData))
@@ -66,7 +58,7 @@ const userController = {
           .catch(err => res.status(400).json(err));
     },
 
-    // DELETE User
+    // DELETE user
     deleteUser({ params }, res) {
         User.findOneAndDelete({ _id: params.id })
           .then(dbUserData => {
